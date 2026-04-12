@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automaton game</title>
+    <script src="js/Environment.js"></script>
+    <script src="js/Obstacle.js"></script>
+    <script src="js/Automaton.js"></script>
+    <script src="js/State.js"></script>
+    <script src="js/GameArea.js"></script>
+    <script src="js/Component.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <script>
+        /*#############################
+        #      Environment setup      #
+        #############################*/
+        var ga = new GameArea(20, 20, 40);
+        let env = ga.env;
+
+        /*#####################
+        #      Obstacles      #
+        #####################*/
+        for (obstacle of env.obstacles) {
+            ga.addComponent(new Component(obstacle.width, obstacle.height, obstacle.x, obstacle.y, "blue", ga, false));
+        }
+
+        /*######################
+        #      Components      #
+        ######################*/
+        //ga.addComponent(new Component(1, 1, 5, 5, "red", ga, true));
+        //ga.addComponent(new Component(1, 1, 7, 8, "green", ga, true));
+    </script>
+
+    <div id="commands">
+        <div id="buttons">
+            <button id="obstacles" onclick="ga.setObstacle(); handleAlerts(this)">◻ Set obstacles</button>
+            <button id="resources" onclick="ga.setResource(); handleAlerts(this)">★ Set resources</button>
+            <div class="tooltip">
+                <button id="startGoals" onclick="ga.setStartAndGoal(); handleAlerts(this)" disabled="true">⌂ Set start/goal
+                    <span class="tooltiptext">Insert at least 1 obstacle and all the available resources!</span>
+                </button>
+            </div>
+            <button id="step" onclick="ga.updateGameArea()" disabled="true">↪ Step</button>
+            <button id="start" onclick="ga.startAutoUpdate(); handleClick(this, null, null); handleAlerts(this)" disabled="true">▶ Start</button>
+            <button id="stop" onclick="ga.stopAutoUpdate(); handleClick(this, null, null); handleAlerts(this)" disabled="true">⏹ Stop</button>
+            <button id="reset" onclick="ga.stopAutoUpdate(); handleClick(this, ga, ga.env); handleAlerts(this)" disabled="true">↺ Reset</button>
+        </div>
+        <div id="alerts">
+
+        </div>
+    </div>
+
+    <script src="js/buttons.js"></script>
+</body>
+
+</html>
