@@ -1,4 +1,9 @@
 class GameArea {
+
+    goals = [];
+    maxResources = 3;
+    resourcesNumber = 1;
+
     constructor(width, height, pixelsPerState) {
         this.components = [];
         this.canvas = document.createElement("canvas");
@@ -52,14 +57,22 @@ class GameArea {
                 const resourceIndex = this.components.findIndex(r => r.id === "2" && r.x === component.x && r.y === component.y);
                 this.env.takeResource(this.getCell(this.components[resourceIndex].x), this.getCell(this.components[resourceIndex].y));
                 this.components.splice(resourceIndex, 1);
+                document.getElementById("res" + this.resourcesNumber++).style.color = "black";
             }
         }
+
         if (this.selectionMode === "startGoal" && this.startGoalStart) {
-            this.context.strokeStyle = 'red';
+            this.context.strokeStyle = "red";
             this.context.lineWidth = 2;
             const xStart = this.startGoalStart.x * this.pixelsPerState;
             const yStart = this.startGoalStart.y * this.pixelsPerState;
             this.context.strokeRect(xStart, yStart, this.pixelsPerState, this.pixelsPerState);
+        }
+
+        if (this.goals.length > 0) {
+            this.context.strokeStyle = "green";
+            this.context.lineWidth = 2;
+            this.context.strokeRect(this.goals[0] * this.pixelsPerState, this.goals[1] * this.pixelsPerState, this.pixelsPerState, this.pixelsPerState);
         }
     }
 
@@ -173,6 +186,7 @@ class GameArea {
                 const startY = this.startGoalStart.y;
                 const goalX = cellX;
                 const goalY = cellY;
+                this.goals = [goalX, goalY];
 
                 this.addComponent(new Component(1, 1, startX, startY, "red", this, "1", goalX, goalY));
                 this.selectingStartGoal = false;

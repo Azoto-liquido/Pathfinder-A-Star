@@ -9,7 +9,7 @@ const reset = document.getElementById("reset");
 const alerts = document.getElementById("alerts");
 const alertDelay = 3000;
 
-const maxResources = 3;
+const maxResources = ga.maxResources;
 let resourcesNumber = 0;
 
 let obstaclesPlaced = false;
@@ -89,6 +89,7 @@ function handleClick(button, ga, env) {
             reset.disabled = true;
             ga.components = [];
             env.obstacles = [];
+            ga.goals = [];
             ga.updateGameArea();
             break;
     }
@@ -125,7 +126,6 @@ function handleAlerts(button) {
 }
 
 document.addEventListener('keydown', e => {
-    console.log(e);
     switch (e.code) {
         case "KeyO":
             if (!obstacles.disabled) {

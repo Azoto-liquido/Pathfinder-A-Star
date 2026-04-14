@@ -19,14 +19,19 @@ canvas {
 }
 
 #ui {
+    height: 93%;
+    width: 50%;
+    background-color: gray;
+    padding: 10px;
+    border: 3px solid black;
+    border-radius: 10px;
     display: grid;
     grid-template-rows: auto;
     justify-items: center;
     align-items: center;
-    gap: 100px;
 }
 
-#buttons, #alerts {
+#score, #buttons, #alerts {
     background-color: blue;
     padding: 40px;
     border: 3px solid black;

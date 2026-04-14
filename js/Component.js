@@ -11,7 +11,7 @@ class Component {
         this.color = color;
         this.ga = ga;
         this.ctx = ga.context;
-        this.id = id;
+        this.id = id; // 0: obstacle, 1: can move (automaton), 2: resource
         this.i = -1;
 
         if (id === "1") {
@@ -32,6 +32,15 @@ class Component {
     }
 
     update() {
+        if (this.id === "1" && this.path != null && this.i === this.path.length) {
+            this.ga.stopAutoUpdate();
+            const stop = document.getElementById("stop");
+            handleClick(stop, null, null);
+            handleAlerts(stop);
+            document.getElementById("finish").innerHTML = "yes";
+            alert("Finished!");
+        }
+
         if (this.id && this.i >= 0) this.newPos();
         this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -57,15 +66,6 @@ class Component {
             
             this.path = this.automaton.aStar();
         }*/
-        
-        if (this.id === "1" && this.path != null && this.i === this.path.length) {
-            alert("Finished!");
-            this.ga.stopAutoUpdate();
-            const stop = document.getElementById("stop");
-            handleClick(stop, null, null);
-            handleAlerts(stop);
-            document.getElementById("finish").innerHTML = "yes";
-        }
     }
 
     newPos() {
