@@ -8,7 +8,7 @@ class Environment {
         for (let y = 0; y < height; y++) {
             this.grid[y] = [];
             for (let x = 0; x < width; x++) {
-                this.grid[y][x] = { type: 'empty', cost: 1, hasResource: false };
+                this.grid[y][x] = { type: 'empty', hasResource: false };
             }
         }
 
@@ -19,7 +19,7 @@ class Environment {
         this.obstacles.push(new Obstacle(x, y, width, height));
         for (let dy = 0; dy < height; dy++) {
             for (let dx = 0; dx < width; dx++) {
-                this.grid[y + dy][x + dx] = { type: 'wall', cost: Infinity, hasResource: false };
+                this.grid[y + dy][x + dx] = { type: 'wall', hasResource: false };
             }
         }
     }
@@ -32,6 +32,10 @@ class Environment {
         return this.grid[y][x].hasResource;
     }
 
+    takeResource(x, y) {
+        this.grid[y][x].hasResource = false;
+    }
+
     resourceUnder(x, y, width, height) {
         for (let dy = y; dy < y + height; dy++) {
             for (let dx = x; dx < x + width; dx++) {
@@ -39,6 +43,16 @@ class Environment {
             }
         }
         return false;
+    }
+
+    getResources() {
+        const resources = [];
+        for (let dy = 0; dy < this.height; dy++) {
+            for (let dx = 0; dx < this.width; dx++) {
+                if (this.grid[dy][dx].hasResource) resources.push({ x: dx, y: dy });
+            }
+        }
+        return resources;
     }
 
     underObstacle(x, y, width, height) {

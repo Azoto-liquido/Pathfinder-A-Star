@@ -4,6 +4,7 @@ const startAndGoals = document.getElementById("startGoals");
 const step = document.getElementById("step");
 const start = document.getElementById("start");
 const stop = document.getElementById("stop");
+const reset = document.getElementById("reset");
 
 const alerts = document.getElementById("alerts");
 const alertDelay = 3000;
@@ -13,31 +14,48 @@ let resourcesNumber = 0;
 
 let obstaclesPlaced = false;
 
+function initializeButtons() {
+    resourcesNumber = 0;
+    obstaclesPlaced = false;
+
+    obstacles.disabled = false;
+    resources.disabled = false;
+    startAndGoals.disabled = true;
+    step.disabled = true;
+    start.disabled = true;
+    stop.disabled = true;
+    reset.disabled = true;
+    alerts.style.display = "none";
+}
+
+window.addEventListener("load", initializeButtons);
+
 function handleClick(button, ga, env) {
     switch (button.id) {
         case "obstacles":
             obstaclesPlaced = true;
             obstacles.disabled = false;
-            if (resourcesNumber < maxResources - 1) resources.disabled = false;
+            if (resourcesNumber < maxResources) resources.disabled = false;
             reset.disabled = false;
             alerts.style.display = "none";
-            if (startAndGoals.disabled && resourcesNumber == maxResources - 1) {
+            if (startAndGoals.disabled && resourcesNumber === maxResources) {
                 startAndGoals.disabled = false;
             }
             break;
         case "resources":
             obstacles.disabled = false;
-            resources.disabled = false;
             reset.disabled = false;
+            alerts.style.display = "none";
             if (resourcesNumber < maxResources - 1) {
                 resourcesNumber++;
-            } else {
+                resources.disabled = false;
+            } else if (resourcesNumber === maxResources - 1) {
+                resourcesNumber++;
                 resources.disabled = true;
-                if (startAndGoals.disabled && obstaclesPlaced) {
-                    startAndGoals.disabled = false;
-                }
             }
-            alerts.style.display = "none";
+            if (resourcesNumber === maxResources && obstaclesPlaced && startAndGoals.disabled) {
+                startAndGoals.disabled = false;
+            }
             break;
         case "startGoals":
             obstacles.disabled = true;
@@ -105,3 +123,51 @@ function handleAlerts(button) {
             break;
     }
 }
+
+document.addEventListener('keydown', e => {
+    console.log(e);
+    switch (e.code) {
+        case "KeyO":
+            if (!obstacles.disabled) {
+                ga.setObstacle();
+                handleAlerts(obstacles);
+            }
+            break;
+        case "KeyR":
+            if (!resources.disabled) {
+                ga.setResource();
+                handleAlerts(resources);
+            }
+            break;
+        case "KeyG":
+            if (!startAndGoals.disabled) {
+                ga.setStartAndGoal();
+                handleClick(startAndGoals, null, null);
+                handleAlerts(startAndGoals);
+            }
+            break;
+        case "KeyS":
+            if (!step.disabled) {
+                ga.updateGameArea();
+            }
+            break;
+        case "Space":
+            if (stop.disabled) {
+                ga.startAutoUpdate();
+                handleClick(start, null, null);
+                handleAlerts(start);
+            } else {
+                ga.stopAutoUpdate();
+                handleClick(stop, null, null);
+                handleAlerts(stop);
+            }
+            break;
+        case "Backspace":
+            if (!reset.disabled) {
+                ga.stopAutoUpdate();
+                handleClick(reset, ga, ga.env);
+                handleAlerts(reset);
+            }
+            break;
+    }
+});

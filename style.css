@@ -18,7 +18,7 @@ canvas {
     border-radius: 10px;
 }
 
-#commands {
+#ui {
     display: grid;
     grid-template-rows: auto;
     justify-items: center;
@@ -86,4 +86,8 @@ canvas {
 
 #alerts {
     display: none;
+}
+
+#res1, #res2, #res3 {
+    color: gray;
 }

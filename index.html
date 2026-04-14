@@ -7,10 +7,10 @@
     <title>Automaton game</title>
     <script src="js/Environment.js"></script>
     <script src="js/Obstacle.js"></script>
-    <script src="js/Automaton.js"></script>
     <script src="js/State.js"></script>
-    <script src="js/GameArea.js"></script>
+    <script src="js/Automaton.js"></script>
     <script src="js/Component.js"></script>
+    <script src="js/GameArea.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -26,29 +26,30 @@
         #      Obstacles      #
         #####################*/
         for (obstacle of env.obstacles) {
-            ga.addComponent(new Component(obstacle.width, obstacle.height, obstacle.x, obstacle.y, "blue", ga, false));
+            ga.addComponent(new Component(obstacle.width, obstacle.height, obstacle.x, obstacle.y, "blue", ga, 0));
         }
-
-        /*######################
-        #      Components      #
-        ######################*/
-        //ga.addComponent(new Component(1, 1, 5, 5, "red", ga, true));
-        //ga.addComponent(new Component(1, 1, 7, 8, "green", ga, true));
     </script>
 
-    <div id="commands">
+    <div id="ui">
+        <div id="score">
+            <p>Resources: <span id="res1">★</span> <span id="res2">★</span> <span id="res3">★</span></p>
+            <p>Completed: <span id="finish">no</span></p>
+        </div>
         <div id="buttons">
-            <button id="obstacles" onclick="ga.setObstacle(); handleAlerts(this)">◻ Set obstacles</button>
-            <button id="resources" onclick="ga.setResource(); handleAlerts(this)">★ Set resources</button>
+            <button id="obstacles" onclick="ga.setObstacle(); handleAlerts(this)">◻ Set obstacles [O]</button>
+            <button id="resources" onclick="ga.setResource(); handleAlerts(this)">★ Set resources [R]</button>
             <div class="tooltip">
-                <button id="startGoals" onclick="ga.setStartAndGoal(); handleAlerts(this)" disabled="true">⌂ Set start/goal
+                <button id="startGoals" onclick="ga.setStartAndGoal(); handleAlerts(this)" disabled="true">⌂ Set start/goal [G]
                     <span class="tooltiptext">Insert at least 1 obstacle and all the available resources!</span>
                 </button>
             </div>
-            <button id="step" onclick="ga.updateGameArea()" disabled="true">↪ Step</button>
-            <button id="start" onclick="ga.startAutoUpdate(); handleClick(this, null, null); handleAlerts(this)" disabled="true">▶ Start</button>
-            <button id="stop" onclick="ga.stopAutoUpdate(); handleClick(this, null, null); handleAlerts(this)" disabled="true">⏹ Stop</button>
-            <button id="reset" onclick="ga.stopAutoUpdate(); handleClick(this, ga, ga.env); handleAlerts(this)" disabled="true">↺ Reset</button>
+            <button id="step" onclick="ga.updateGameArea()" disabled="true">↪ Step [S]</button>
+            <button id="start" onclick="ga.startAutoUpdate(); handleClick(this, null, null); handleAlerts(this)"
+                disabled="true">▶ Start [SPACEBAR]</button>
+            <button id="stop" onclick="ga.stopAutoUpdate(); handleClick(this, null, null); handleAlerts(this)"
+                disabled="true">⏹ Stop [SPACEBAR]</button>
+            <button id="reset" onclick="ga.stopAutoUpdate(); handleClick(this, ga, ga.env); handleAlerts(this)"
+                disabled="true">↺ Reset [BACKSPACE]</button>
         </div>
         <div id="alerts">
 

@@ -48,6 +48,11 @@ class GameArea {
         this.drawGrid();
         for (const component of this.components) {
             component.update();
+            if (component.id === "1" && this.env.resourceUnder(this.getCell(component.x), this.getCell(component.y), this.getCell(component.width), this.getCell(component.height))) {
+                const resourceIndex = this.components.findIndex(r => r.id === "2" && r.x === component.x && r.y === component.y);
+                this.env.takeResource(this.getCell(this.components[resourceIndex].x), this.getCell(this.components[resourceIndex].y));
+                this.components.splice(resourceIndex, 1);
+            }
         }
         if (this.selectionMode === "startGoal" && this.startGoalStart) {
             this.context.strokeStyle = 'red';
@@ -129,7 +134,7 @@ class GameArea {
 
                     this.env.addObstacle(xStart, yStart, width, height);
                     const newObstacle = this.env.obstacles[this.env.obstacles.length - 1];
-                    this.addComponent(new Component(newObstacle.width, newObstacle.height, newObstacle.x, newObstacle.y, "blue", this, false));
+                    this.addComponent(new Component(newObstacle.width, newObstacle.height, newObstacle.x, newObstacle.y, "blue", this, "0", null, null));
                     this.selectingObstacles = false;
                     this.selectionMode = null;
                     this.obstacleStart = null;
@@ -144,7 +149,7 @@ class GameArea {
                 cellX = this.getCell(x);
                 cellY = this.getCell(y);
                 this.env.addResources(cellX, cellY);
-                this.addComponent(new Component(1, 1, cellX, cellY, "yellow", this, false));
+                this.addComponent(new Component(1, 1, cellX, cellY, "yellow", this, "2", null, null));
                 this.selectingResources = false;
                 this.selectionMode = null;
                 this.updateGameArea();
@@ -169,7 +174,7 @@ class GameArea {
                 const goalX = cellX;
                 const goalY = cellY;
 
-                this.addComponent(new Component(1, 1, startX, startY, "red", this, true, goalX, goalY));
+                this.addComponent(new Component(1, 1, startX, startY, "red", this, "1", goalX, goalY));
                 this.selectingStartGoal = false;
                 this.selectionMode = null;
                 this.startGoalStart = null;

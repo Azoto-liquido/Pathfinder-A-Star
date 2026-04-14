@@ -1,6 +1,6 @@
 class Component {
 
-    constructor(width, height, x, y, color, ga, move, goalX, goalY) {
+    constructor(width, height, x, y, color, ga, id, goalX, goalY) {
         this.pixelsPerState = ga.pixelsPerState;
         this.width = width * this.pixelsPerState;
         this.height = height * this.pixelsPerState;
@@ -11,11 +11,10 @@ class Component {
         this.color = color;
         this.ga = ga;
         this.ctx = ga.context;
-        this.move = move;
+        this.id = id;
         this.i = -1;
-        this.path = [];
 
-        if (move) {
+        if (id === "1") {
             /*
             let goalX, goalY;
             do {
@@ -24,22 +23,23 @@ class Component {
             } while (this.ga.env.underObstacle(goalX, goalY, this.componentWidth, this.componentHeight) || (goalX == x && goalY == y));
             */
 
-            this.automaton = new Automaton(x, y, ga.env, goalX, goalY, this.componentWidth, this.componentHeight);
+            this.automaton = new Automaton(x, y, ga.env, goalX, goalY, this.componentWidth, this.componentHeight, ga.env.getResources());
 
-            this.path = this.automaton.aStar();
+            this.path = this.automaton.pathfinder();
+
         }
 
     }
 
     update() {
-        if (this.move && this.i >= 0) this.newPos();
+        if (this.id && this.i >= 0) this.newPos();
         this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
-        if (this.move && this.path != null && this.i < this.path.length) {
+        if (this.id === "1" && this.path != null && this.i < this.path.length) {
             this.i++;
         } 
         /*
-        else if (this.move && this.path != null) {
+        else if (this.id && this.path != null) {
             // alert("Finished!");
             this.i = 0;
             let goalX, goalY;
@@ -57,10 +57,19 @@ class Component {
             
             this.path = this.automaton.aStar();
         }*/
+        
+        if (this.id === "1" && this.path != null && this.i === this.path.length) {
+            alert("Finished!");
+            this.ga.stopAutoUpdate();
+            const stop = document.getElementById("stop");
+            handleClick(stop, null, null);
+            handleAlerts(stop);
+            document.getElementById("finish").innerHTML = "yes";
+        }
     }
 
     newPos() {
-        if (this.move && this.path != null && this.i < this.path.length) {
+        if (this.id === "1" && this.path != null && this.i < this.path.length) {
             this.state = this.path[this.i];
             this.x = this.state.x * this.pixelsPerState;
             this.y = this.state.y * this.pixelsPerState;
