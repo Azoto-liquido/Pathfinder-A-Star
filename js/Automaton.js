@@ -94,9 +94,9 @@ class Automaton {
 
         resourcesPaths = resourcesPaths.filter(p => p.length > 0);
 
-        if (resourcesPaths.length === 0) {
-            console.warn("Nessuna risorsa raggiungibile");
-            return [];
+        if (resourcesPaths.length == 0) {
+            alert("No reachable resource.");
+            return this.aStar(this.initialX, this.initialY, this.goalX, this.goalY);
         }
 
         const firstPath = resourcesPaths[0];
@@ -111,8 +111,8 @@ class Automaton {
 
         while (remaining.length > 0) {
             remaining.sort((a, b) =>
-                this.heuristic(lastState.x, lastState.y, a.x, a.y) -
-                this.heuristic(lastState.x, lastState.y, b.x, b.y)
+                this.aStar(lastState.x, lastState.y, a.x, a.y).length -
+                this.aStar(lastState.x, lastState.y, b.x, b.y).length
             );
             const nearest = remaining.shift();
             const nextPath = this.aStar(lastState.x, lastState.y, nearest.x, nearest.y);

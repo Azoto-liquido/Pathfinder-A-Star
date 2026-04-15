@@ -91,6 +91,10 @@ function handleClick(button, ga, env) {
             env.obstacles = [];
             ga.goals = [];
             ga.updateGameArea();
+            document.getElementById("finish").innerHTML = "no";
+            document.getElementById("res1").style.color = "gray";
+            document.getElementById("res2").style.color = "gray";
+            document.getElementById("res3").style.color = "gray";
             break;
     }
 }
@@ -153,13 +157,17 @@ document.addEventListener('keydown', e => {
             break;
         case "Space":
             if (stop.disabled) {
-                ga.startAutoUpdate();
-                handleClick(start, null, null);
-                handleAlerts(start);
+                if (!start.disabled) {
+                    ga.startAutoUpdate();
+                    handleClick(start, null, null);
+                    handleAlerts(start);
+                }
             } else {
-                ga.stopAutoUpdate();
-                handleClick(stop, null, null);
-                handleAlerts(stop);
+                if (!stop.disabled) {
+                    ga.stopAutoUpdate();
+                    handleClick(stop, null, null);
+                    handleAlerts(stop);
+                }
             }
             break;
         case "Backspace":
