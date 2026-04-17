@@ -89,7 +89,7 @@ function handleClick(button, ga, env) {
             reset.disabled = false;
             break;
         case "reset":
-            form.resources.value = 3;
+            // form.resources.value = 3;
             resourcesNumber = 0;
             obstacles.disabled = false;
             resources.disabled = false;
