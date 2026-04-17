@@ -9,12 +9,22 @@ const reset = document.getElementById("reset");
 const alerts = document.getElementById("alerts");
 const alertDelay = 3000;
 
-const maxResources = ga.maxResources;
+let maxResources = ga.maxResources;
 let resourcesNumber = 0;
 
 let obstaclesPlaced = false;
 
+const form = document.getElementById("form");
+
+/*
+form.addEventListener('submit', (event) => {
+    maxResources = form.resources.value;
+    ga.maxResources = form.resources.value;
+});
+*/
+
 function initializeButtons() {
+    // form.resources.value = 3;
     resourcesNumber = 0;
     obstaclesPlaced = false;
 
@@ -79,6 +89,7 @@ function handleClick(button, ga, env) {
             reset.disabled = false;
             break;
         case "reset":
+            form.resources.value = 3;
             resourcesNumber = 0;
             obstacles.disabled = false;
             resources.disabled = false;

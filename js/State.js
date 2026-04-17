@@ -7,7 +7,6 @@ class State{
         this.previous = previous;
     }
 
-    // return the cost to get to this state from the initial state
     g(){
         if(this.previous != null){
             return this.previous.g() + 1;
@@ -19,8 +18,6 @@ class State{
         return this.g + this.h;
     }
 
-    // check if this State opbject is the same as state
-    // state is another object of State class
     isEqual(state){
         return state.x == this.x && state.y == this.y;
     }

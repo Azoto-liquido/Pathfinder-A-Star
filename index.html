@@ -31,9 +31,23 @@
     </script>
 
     <div id="ui">
-        <div id="score">
-            <div>Resources: <span id="res1">★</span> <span id="res2">★</span> <span id="res3">★</span></div>
-            <div>Completed: <span id="finish">no</span></div>
+        <h1>Pathfinder</h1>
+
+        <div id="head">
+            <div id="score">
+                <div>Resources: <span id="res1">★</span> <span id="res2">★</span> <span id="res3">★</span></div>
+                <div>Completed: <span id="finish">no</span></div>
+            </div>
+            <!--<div id="settings">
+                <form id="form" onsubmit="event.preventDefault()">
+                    <div id="formObj">
+                        <label>★: </label>
+                        <input type="number" name="resources" value="3" min="0">
+                    </div>
+
+                    <button type="submit">OK</button>
+                </form>
+            </div>-->
         </div>
         <div id="buttons">
             <button id="obstacles" onclick="ga.setObstacle(); handleAlerts(this)">◻ Set obstacles [O]</button>

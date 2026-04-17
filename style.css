@@ -5,7 +5,8 @@ body {
 
     font-family: Arial, Helvetica, sans-serif;
     font-size:large;
-    background-color: darkblue;
+    background-color: rgb(18, 37, 199);
+    color: white;
 
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -18,10 +19,15 @@ canvas {
     border-radius: 10px;
 }
 
+h1 {
+    margin: 0;
+    text-decoration: underline;
+}
+
 #ui {
     height: 93%;
-    width: 50%;
-    background-color: gray;
+    width: 60%;
+    background-color: rgb(29, 40, 88);
     padding: 10px;
     border: 3px solid black;
     border-radius: 10px;
@@ -31,8 +37,19 @@ canvas {
     align-items: center;
 }
 
-#score, #buttons, #alerts {
-    background-color: blue;
+#head {
+    display: flex;
+    flex-direction: rows;
+    gap: 10px;
+}
+
+#score, #settings {
+    width: 100%;
+    text-align: center;
+}
+
+#score, #settings, #buttons, #alerts {
+    background-color: rgb(18, 37, 199);
     padding: 40px;
     border: 3px solid black;
     border-radius: 10px;
@@ -41,20 +58,28 @@ canvas {
     gap: 10px;
 }
 
-#buttons button {
+button, input {
+    background-color: white;
     font-size: 16px;
     padding: 10px 20px;
-    border: none;
+    border: 0;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-#buttons button:hover {
-    background-color: lightblue;
+input {
+    width: 60%;
+    cursor: auto;
+    transition: none;
 }
 
-#buttons button:disabled {
+button:hover:enabled {
+    background-color: lightblue;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+button:disabled {
     background-color: gray;
     cursor: not-allowed;
 }
@@ -94,5 +119,5 @@ canvas {
 }
 
 #res1, #res2, #res3 {
-    color: gray;
+    color: rgb(155, 155, 155);
 }

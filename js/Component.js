@@ -11,7 +11,14 @@ class Component {
         this.color = color;
         this.ga = ga;
         this.ctx = ga.context;
-        this.id = id; // 0: obstacle, 1: can move (automaton), 2: resource
+        this.id = id; 
+        /*
+            ID =
+            0: obstacle
+            1: can move (automaton)
+            2: resource
+        */
+       
         this.i = -1;
 
         if (id === "1") {

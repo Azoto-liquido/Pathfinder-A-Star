@@ -57,7 +57,7 @@ class GameArea {
                 const resourceIndex = this.components.findIndex(r => r.id === "2" && r.x === component.x && r.y === component.y);
                 this.env.takeResource(this.getCell(this.components[resourceIndex].x), this.getCell(this.components[resourceIndex].y));
                 this.components.splice(resourceIndex, 1);
-                document.getElementById("res" + this.resourcesNumber++).style.color = "black";
+                document.getElementById("res" + this.resourcesNumber++).style.color = "yellow";
             }
         }
 
@@ -84,11 +84,11 @@ class GameArea {
         this.interval = setInterval(this.updateGameArea.bind(this), 100);
     }
 
-    // ------ Setup ------
     getCell(value) {
         return Math.floor(value / this.pixelsPerState);
     }
 
+    // ------ Environment setup ------
     setObstacle() {
         this.obstacleStart = null;
         this.selectionMode = "obstacles";
@@ -128,6 +128,7 @@ class GameArea {
         switch (this.selectionMode) {
             case "obstacles":
                 if (this.obstacleStart === null) {
+                    if (this.env.resourceUnder(this.getCell(x), this.getCell(y), 1, 1)) return;
                     this.obstacleStart = { x, y };
                     this.context.fillStyle = "orange";
                     this.context.fillRect(this.getCell(x) * this.pixelsPerState, this.getCell(y) * this.pixelsPerState, this.pixelsPerState, this.pixelsPerState);
@@ -147,7 +148,7 @@ class GameArea {
 
                     this.env.addObstacle(xStart, yStart, width, height);
                     const newObstacle = this.env.obstacles[this.env.obstacles.length - 1];
-                    this.addComponent(new Component(newObstacle.width, newObstacle.height, newObstacle.x, newObstacle.y, "blue", this, "0", null, null));
+                    this.addComponent(new Component(width, height, xStart, yStart, "blue", this, "0", null, null));
                     this.selectingObstacles = false;
                     this.selectionMode = null;
                     this.obstacleStart = null;
