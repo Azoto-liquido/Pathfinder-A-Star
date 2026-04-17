@@ -12,23 +12,6 @@ Pathfinder-A-Star allows users to create custom grid environments with obstacles
 - **Step-by-Step or Real-Time**: Watch the automaton move one step at a time or run the simulation
 - **Keyboard Shortcuts**: Full keyboard support
 
-## Project Structure
-
-```
-Pathfinder-A-Star/
-├── index.html              # Main entry point
-├── style.css               # Styling and layout
-├── js/
-│   ├── Automaton.js        # A* pathfinding algorithm implementation
-│   ├── Component.js        # Visual representation of game objects
-│   ├── Environment.js      # Grid environment and state management
-│   ├── GameArea.js         # Canvas rendering and user interaction handler
-│   ├── Obstacle.js         # Obstacle definition and collision detection
-│   ├── State.js            # A* search state representation (g, h, f costs)
-│   └── buttons.js          # UI button logic and keyboard shortcuts
-└── README.md               # Project documentation
-```
-
 ## How It Works
 
 ### A* Algorithm
