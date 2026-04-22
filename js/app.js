@@ -21,6 +21,7 @@ form.addEventListener('submit', (event) => {
     maxResources = form.resources.value;
     ga.maxResources = form.resources.value;
     loadSettings();
+    ga.setDimension(form.grid.value);
 });
 
 function initialize() {
@@ -29,6 +30,7 @@ function initialize() {
     maxResources = ga.maxResources;
     ga.resourcesNumber = 0;
     resourcesNumber = 0;
+    form.grid.value = 20;
     loadSettings();
     obstaclesPlaced = false;
 
@@ -84,7 +86,7 @@ function handleClick(button, ga, env) {
                 resourcesNumber++;
                 resources.disabled = true;
             }
-            if (resourcesNumber == maxResources && obstaclesPlaced && startAndGoals.disabled) {
+            if (startAndGoals.disabled && obstaclesPlaced && resourcesNumber == maxResources) {
                 startAndGoals.disabled = false;
             }
             break;

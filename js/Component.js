@@ -25,8 +25,8 @@ class Component {
             /*
             let goalX, goalY;
             do {
-                goalX = Math.floor(Math.random() * (this.ga.env.width - this.componentWidth + 1));
-                goalY = Math.floor(Math.random() * (this.ga.env.height - this.componentHeight + 1));
+                goalX = Math.floor(Math.random() * (this.ga.env.size - this.componentWidth + 1));
+                goalY = Math.floor(Math.random() * (this.ga.env.size - this.componentHeight + 1));
             } while (this.ga.env.underObstacle(goalX, goalY, this.componentWidth, this.componentHeight) || (goalX == x && goalY == y));
             */
 
@@ -62,8 +62,8 @@ class Component {
             let currentX = Math.floor(this.x / this.pixelsPerState);
             let currentY = Math.floor(this.y / this.pixelsPerState);
             do {
-                goalX = Math.floor(Math.random() * this.ga.env.width);
-                goalY = Math.floor(Math.random() * this.ga.env.height);
+                goalX = Math.floor(Math.random() * this.ga.env.size);
+                goalY = Math.floor(Math.random() * this.ga.env.size);
             } while (this.ga.env.underObstacle(goalX, goalY) || (goalX == currentX && goalY == currentY));
 
             this.automaton.initalX = currentX;

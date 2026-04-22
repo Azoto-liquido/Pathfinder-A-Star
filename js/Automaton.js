@@ -18,7 +18,7 @@ class Automaton {
         let successors = [];
         let x = state.x;
         let y = state.y;
-        if (x + 1 + this.width - 1 < this.env.width) {
+        if (x + 1 + this.width - 1 < this.env.size) {
             if (!this.env.underObstacle(x + 1, y, this.width, this.height)) {
                 successors.push(new State(x + 1, y, state.g + 1, this.heuristic(x + 1, y, goalX, goalY), state));
             }
@@ -28,7 +28,7 @@ class Automaton {
                 successors.push(new State(x - 1, y, state.g + 1, this.heuristic(x - 1, y, goalX, goalY), state));
             }
         }
-        if (y + 1 + this.height - 1 < this.env.height) {
+        if (y + 1 + this.height - 1 < this.env.size) {
             if (!this.env.underObstacle(x, y + 1, this.width, this.height)) {
                 successors.push(new State(x, y + 1, state.g + 1, this.heuristic(x, y + 1, goalX, goalY), state));
             }

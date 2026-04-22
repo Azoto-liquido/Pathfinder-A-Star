@@ -1,13 +1,12 @@
 class Environment {
-    constructor(width, height, pixelPerState) {
-        this.width = width;
-        this.height = height;
+    constructor(size, pixelPerState) {
+        this.size = size;
         this.pixelPerState = pixelPerState;
 
         this.grid = [];
-        for (let y = 0; y < height; y++) {
+        for (let y = 0; y < size; y++) {
             this.grid[y] = [];
-            for (let x = 0; x < width; x++) {
+            for (let x = 0; x < size; x++) {
                 this.grid[y][x] = { type: 'empty', hasResource: false };
             }
         }
@@ -47,8 +46,8 @@ class Environment {
 
     getResources() {
         const resources = [];
-        for (let dy = 0; dy < this.height; dy++) {
-            for (let dx = 0; dx < this.width; dx++) {
+        for (let dy = 0; dy < this.size; dy++) {
+            for (let dx = 0; dx < this.size; dx++) {
                 if (this.grid[dy][dx].hasResource) resources.push({ x: dx, y: dy });
             }
         }

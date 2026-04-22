@@ -4,14 +4,14 @@ class GameArea {
     maxResources = 3;
     resourcesNumber = 0;
 
-    constructor(width, height, pixelsPerState) {
+    constructor(size) {
         this.components = [];
         this.canvas = document.createElement("canvas");
         this.canvas.setAttribute("style", "border: 3px solid black");
-        this.pixelsPerState = pixelsPerState;
-        this.env = new Environment(width, height, pixelsPerState);
-        this.canvas.width = width * pixelsPerState;
-        this.canvas.height = height * pixelsPerState;
+        this.pixelsPerState = 800 / size;
+        this.env = new Environment(size, this.pixelsPerState);
+        this.canvas.width = 800;
+        this.canvas.height = 800;
         this.obstacleStart = null;
         this.startGoalStart = null;
         this.selectionMode = null;
@@ -22,6 +22,19 @@ class GameArea {
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.canvas.addEventListener("click", (e) => this.handleCanvasClick(e));
+        this.updateGameArea();
+    }
+
+    setDimension(size) {
+        this.pixelsPerState = 800 / size;
+        this.env.size = size;
+        this.env.grid = [];
+        for (let y = 0; y < size; y++) {
+            this.env.grid[y] = [];
+            for (let x = 0; x < size; x++) {
+                this.env.grid[y][x] = { type: 'empty', hasResource: false };
+            }
+        }
         this.updateGameArea();
     }
 
@@ -147,7 +160,6 @@ class GameArea {
                     if (this.env.resourceUnder(xStart, yStart, width, height)) return;
 
                     this.env.addObstacle(xStart, yStart, width, height);
-                    const newObstacle = this.env.obstacles[this.env.obstacles.length - 1];
                     this.addComponent(new Component(width, height, xStart, yStart, "blue", this, "0", null, null));
                     this.selectingObstacles = false;
                     this.selectionMode = null;
@@ -157,7 +169,7 @@ class GameArea {
                 }
                 break;
             case "resources":
-                if (this.env.underObstacle(this.getCell(x), this.getCell(y), 1, 1)) {
+                if (this.env.underObstacle(this.getCell(x), this.getCell(y), 1, 1) || this.env.resourceUnder(this.getCell(x), this.getCell(y), 1, 1)) {
                     return;
                 }
                 cellX = this.getCell(x);
