@@ -15,17 +15,21 @@ let resourcesNumber = 0;
 let obstaclesPlaced = false;
 
 const form = document.getElementById("form");
+const submit = document.getElementById("formButton");
 
-/*
 form.addEventListener('submit', (event) => {
     maxResources = form.resources.value;
     ga.maxResources = form.resources.value;
+    loadSettings();
 });
-*/
 
-function initializeButtons() {
-    // form.resources.value = 3;
+function initialize() {
+    form.resources.value = 3;
+    ga.maxResources = 3;
+    maxResources = ga.maxResources;
+    ga.resourcesNumber = 0;
     resourcesNumber = 0;
+    loadSettings();
     obstaclesPlaced = false;
 
     obstacles.disabled = false;
@@ -35,10 +39,25 @@ function initializeButtons() {
     start.disabled = true;
     stop.disabled = true;
     reset.disabled = true;
+    submit.disabled = false;
     alerts.style.display = "none";
 }
 
-window.addEventListener("load", initializeButtons);
+window.addEventListener("load", initialize);
+
+function loadSettings() {
+    const display = document.getElementById("resources-display");
+    display.textContent = "Resources:";
+    
+    for (let i = 0; i < maxResources; i++) {
+        const span = document.createElement("span");
+        span.textContent = "★";
+        span.className = "res";
+        span.id = "res" + i;
+        display.append(" ");
+        display.appendChild(span);
+    }
+}
 
 function handleClick(button, ga, env) {
     switch (button.id) {
@@ -47,23 +66,25 @@ function handleClick(button, ga, env) {
             obstacles.disabled = false;
             if (resourcesNumber < maxResources) resources.disabled = false;
             reset.disabled = false;
+            submit.disabled = true;
             alerts.style.display = "none";
-            if (startAndGoals.disabled && resourcesNumber === maxResources) {
+            if (startAndGoals.disabled && obstaclesPlaced && resourcesNumber == maxResources) {
                 startAndGoals.disabled = false;
             }
             break;
         case "resources":
             obstacles.disabled = false;
             reset.disabled = false;
+            submit.disabled = true;
             alerts.style.display = "none";
             if (resourcesNumber < maxResources - 1) {
                 resourcesNumber++;
                 resources.disabled = false;
-            } else if (resourcesNumber === maxResources - 1) {
+            } else if (resourcesNumber == maxResources - 1) {
                 resourcesNumber++;
                 resources.disabled = true;
             }
-            if (resourcesNumber === maxResources && obstaclesPlaced && startAndGoals.disabled) {
+            if (resourcesNumber == maxResources && obstaclesPlaced && startAndGoals.disabled) {
                 startAndGoals.disabled = false;
             }
             break;
@@ -89,7 +110,13 @@ function handleClick(button, ga, env) {
             reset.disabled = false;
             break;
         case "reset":
-            // form.resources.value = 3;
+            /*
+            form.resources.value = 3;
+            ga.maxResources = 3;
+            maxResources = ga.maxResources;
+            form.grid.value = 20;
+            */
+            ga.resourcesNumber = 0;
             resourcesNumber = 0;
             obstacles.disabled = false;
             resources.disabled = false;
@@ -98,14 +125,16 @@ function handleClick(button, ga, env) {
             start.disabled = true;
             stop.disabled = true;
             reset.disabled = true;
+            submit.disabled = false;
             ga.components = [];
             env.obstacles = [];
             ga.goals = [];
             ga.updateGameArea();
             document.getElementById("finish").innerHTML = "no";
-            document.getElementById("res1").style.color = "gray";
-            document.getElementById("res2").style.color = "gray";
-            document.getElementById("res3").style.color = "gray";
+            const res = document.getElementsByClassName("res");
+            for (const r of res) {
+                r.style.color = "gray";
+            }
             break;
     }
 }

@@ -48,6 +48,13 @@ h1 {
     text-align: center;
 }
 
+.formObj {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
 #score, #settings, #buttons, #alerts {
     background-color: rgb(18, 37, 199);
     padding: 40px;
@@ -118,6 +125,6 @@ button:disabled {
     display: none;
 }
 
-#res1, #res2, #res3 {
+.res {
     color: rgb(155, 155, 155);
 }

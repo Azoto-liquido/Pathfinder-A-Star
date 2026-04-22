@@ -35,25 +35,31 @@
 
         <div id="head">
             <div id="score">
-                <div>Resources: <span id="res1">★</span> <span id="res2">★</span> <span id="res3">★</span></div>
+                <div id="resources-display"></div>
                 <div>Completed: <span id="finish">no</span></div>
             </div>
-            <!--<div id="settings">
+            <div id="settings">
                 <form id="form" onsubmit="event.preventDefault()">
-                    <div id="formObj">
+                    <div class="formObj">
                         <label>★: </label>
-                        <input type="number" name="resources" value="3" min="0">
+                        <input type="number" name="resources" value="3" min="1" max="10">
                     </div>
 
-                    <button type="submit">OK</button>
+                    <div class="formObj">
+                        <label>#: </label>
+                        <input type="number" name="grid" value="20" min="10">
+                    </div>
+
+                    <button id="formButton" type="submit">OK</button>
                 </form>
-            </div>-->
+            </div>
         </div>
         <div id="buttons">
             <button id="obstacles" onclick="ga.setObstacle(); handleAlerts(this)">◻ Set obstacles [O]</button>
             <button id="resources" onclick="ga.setResource(); handleAlerts(this)">★ Set resources [R]</button>
             <div class="tooltip">
-                <button id="startGoals" onclick="ga.setStartAndGoal(); handleAlerts(this)" disabled="true">⌂ Set start/goal [G]
+                <button id="startGoals" onclick="ga.setStartAndGoal(); handleAlerts(this)" disabled="true">⌂ Set
+                    start/goal [G]
                     <span class="tooltiptext">Insert at least 1 obstacle and all the available resources!</span>
                 </button>
             </div>
@@ -70,7 +76,7 @@
         </div>
     </div>
 
-    <script src="js/buttons.js"></script>
+    <script src="js/app.js"></script>
 </body>
 
 </html>

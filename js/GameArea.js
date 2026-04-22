@@ -2,7 +2,7 @@ class GameArea {
 
     goals = [];
     maxResources = 3;
-    resourcesNumber = 1;
+    resourcesNumber = 0;
 
     constructor(width, height, pixelsPerState) {
         this.components = [];
