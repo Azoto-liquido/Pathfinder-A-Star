@@ -16,15 +16,7 @@ let obstaclesPlaced = false;
 
 const form = document.getElementById("form");
 
-/*
-form.addEventListener('submit', (event) => {
-    maxResources = form.resources.value;
-    ga.maxResources = form.resources.value;
-});
-*/
-
 function initializeButtons() {
-    // form.resources.value = 3;
     resourcesNumber = 0;
     obstaclesPlaced = false;
 
@@ -89,7 +81,6 @@ function handleClick(button, ga, env) {
             reset.disabled = false;
             break;
         case "reset":
-            // form.resources.value = 3;
             resourcesNumber = 0;
             obstacles.disabled = false;
             resources.disabled = false;

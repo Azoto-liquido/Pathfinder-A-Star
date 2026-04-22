@@ -43,12 +43,12 @@ h1 {
     gap: 10px;
 }
 
-#score, #settings {
+#score {
     width: 100%;
     text-align: center;
 }
 
-#score, #settings, #buttons, #alerts {
+#score, #buttons, #alerts {
     background-color: rgb(18, 37, 199);
     padding: 40px;
     border: 3px solid black;
