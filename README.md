@@ -88,6 +88,6 @@ The pathfinding is powered by the A* algorithm implemented in `Automaton.js`:
 
 ## TODOs
 
-- Configurable parameters (grid size, resources number)
-- Path visualization before simulation
-- Cost assignment to each node
+- [X] Configurable parameters (grid size, resources number)
+- [ ] Path visualization before simulation
+- [X] Cost assignment to each node
