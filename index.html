@@ -54,6 +54,7 @@
                 </form>
             </div>
         </div>
+
         <div id="buttons">
             <button id="obstacles" onclick="ga.setObstacle(); handleAlerts(this)">◻ Set obstacles [O]</button>
             <button id="resources" onclick="ga.setResource(); handleAlerts(this)">★ Set resources [R]</button>
@@ -64,13 +65,14 @@
                 </button>
             </div>
             <button id="step" onclick="ga.updateGameArea()" disabled="true">↪ Step [S]</button>
-            <button id="start" onclick="ga.startAutoUpdate(); handleClick(this, null, null); handleAlerts(this)"
+            <button id="start" onclick="ga.startAutoUpdate(); handleClick(this); handleAlerts(this)"
                 disabled="true">▶ Start [SPACEBAR]</button>
-            <button id="stop" onclick="ga.stopAutoUpdate(); handleClick(this, null, null); handleAlerts(this)"
+            <button id="stop" onclick="ga.stopAutoUpdate(); handleClick(this); handleAlerts(this)"
                 disabled="true">⏹ Stop [SPACEBAR]</button>
-            <button id="reset" onclick="ga.stopAutoUpdate(); handleClick(this, ga, ga.env); handleAlerts(this)"
+            <button id="reset" onclick="ga.stopAutoUpdate(); handleClick(this); handleAlerts(this)"
                 disabled="true">↺ Reset [BACKSPACE]</button>
         </div>
+
         <div id="alerts">
 
         </div>

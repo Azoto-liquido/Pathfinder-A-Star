@@ -47,10 +47,18 @@ function initialize() {
 
 window.addEventListener("load", initialize);
 
+function end() {
+    ga.stopAutoUpdate();
+    const finished = document.createElement("p");
+    finished.id = "finished";
+    handleClick(finished);
+    handleAlerts(finished);
+}
+
 function loadSettings() {
     const display = document.getElementById("resources-display");
     display.textContent = "Resources:";
-    
+
     for (let i = 0; i < maxResources; i++) {
         const span = document.createElement("span");
         span.textContent = "★";
@@ -61,7 +69,7 @@ function loadSettings() {
     }
 }
 
-function handleClick(button, ga, env) {
+function handleClick(button) {
     switch (button.id) {
         case "obstacles":
             obstaclesPlaced = true;
@@ -129,7 +137,7 @@ function handleClick(button, ga, env) {
             reset.disabled = true;
             submit.disabled = false;
             ga.components = [];
-            env.obstacles = [];
+            ga.env.obstacles = [];
             ga.goals = [];
             ga.updateGameArea();
             document.getElementById("finish").innerHTML = "no";
@@ -137,6 +145,12 @@ function handleClick(button, ga, env) {
             for (const r of res) {
                 r.style.color = "gray";
             }
+            break;
+        case "finished":
+            step.disabled = true;
+            start.disabled = true;
+            stop.disabled = true;
+            reset.disabled = false;
             break;
     }
 }
@@ -164,6 +178,12 @@ function handleAlerts(button) {
             break;
         case "reset":
             alerts.innerHTML = "Reset";
+            setTimeout(() => {
+                alerts.style.display = "none";
+            }, alertDelay);
+            break;
+        case "finished":
+            alerts.innerHTML = "Finished!";
             setTimeout(() => {
                 alerts.style.display = "none";
             }, alertDelay);

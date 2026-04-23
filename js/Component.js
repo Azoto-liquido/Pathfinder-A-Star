@@ -8,17 +8,19 @@ class Component {
         this.componentHeight = height;
         this.x = x * this.pixelsPerState;
         this.y = y * this.pixelsPerState;
+        this.goalX = goalX * this.pixelsPerState;
+        this.goalY = goalY * this.pixelsPerState;
         this.color = color;
         this.ga = ga;
         this.ctx = ga.context;
-        this.id = id; 
+        this.id = id;
         /*
             ID =
             0: obstacle
             1: can move (automaton)
             2: resource
         */
-       
+
         this.i = -1;
 
         if (id === "1") {
@@ -39,13 +41,14 @@ class Component {
     }
 
     update() {
-        if (this.id === "1" && this.path != null && this.i === this.path.length) {
-            this.ga.stopAutoUpdate();
-            const stop = document.getElementById("stop");
-            handleClick(stop, null, null);
-            handleAlerts(stop);
-            document.getElementById("finish").innerHTML = "yes";
-            alert("Finished!");
+        if (this.id === "1" && this.path != null && this.i == this.path.length) {
+            end();
+            if (this.x == this.goalX && this.y == this.goalY) {
+                document.getElementById("finish").innerHTML = "yes";
+                alert("Finished!");
+            } else {
+                alert("!Finished. Make sure to insert the goal position in a reachable spot.")
+            }
         }
 
         if (this.id && this.i >= 0) this.newPos();
@@ -53,7 +56,7 @@ class Component {
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
         if (this.id === "1" && this.path != null && this.i < this.path.length) {
             this.i++;
-        } 
+        }
         /*
         else if (this.id && this.path != null) {
             // alert("Finished!");

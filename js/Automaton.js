@@ -86,34 +86,43 @@ class Automaton {
         for (const r of this.resources) {
             resourcesPaths.push(this.aStar(this.initialX, this.initialY, r.x, r.y));
         }
-        if (resourcesPaths.length > 1) resourcesPaths.sort((a, b) => a.length - b.length);
 
         resourcesPaths = resourcesPaths.filter(p => p.length > 0);
 
+        if (resourcesPaths.length > 1) resourcesPaths.sort((a, b) => a.length - b.length);
+
         if (resourcesPaths.length == 0) {
-            alert("No reachable resource.");
-            return this.aStar(this.initialX, this.initialY, this.goalX, this.goalY);
+            const goalPath = this.aStar(this.initialX, this.initialY, this.goalX, this.goalY);
+            if (goalPath.length === 0) {
+                alert("Automaton is completely blocked! Cannot reach any resource or the goal.");
+                end();
+                return [];
+            }
+            alert("No reachable resource! Reaching the goal without any resources.");
+            return goalPath;
         }
 
         const firstPath = resourcesPaths[0];
 
-        const firstLastState = firstPath[firstPath.length - 1];
-        const visitedResource = this.resources.find(r => r.x === firstLastState.x && r.y === firstLastState.y);
-        const remainingResources = this.resources.filter(r => r !== visitedResource);
-
+        let lastState = firstPath[firstPath.length - 1];
+        const visitedResource = this.resources.find(r => r.x === lastState.x && r.y === lastState.y);
+        let remaining = this.resources.filter(r => r !== visitedResource);
+        
         resourcesPaths = [firstPath];
-        let lastState = firstLastState;
-        let remaining = [...remainingResources];
+
+        let noResource = false;
 
         while (remaining.length > 0) {
             remaining.sort((a, b) =>
-                this.aStar(lastState.x, lastState.y, a.x, a.y).length -
-                this.aStar(lastState.x, lastState.y, b.x, b.y).length
+                this.aStar(lastState.x, lastState.y, a.x, a.y).length - this.aStar(lastState.x, lastState.y, b.x, b.y).length
             );
             const nearest = remaining.shift();
             const nextPath = this.aStar(lastState.x, lastState.y, nearest.x, nearest.y);
-            if (nextPath.length === 0) {
-                alert("No path found to 1 or more resources.");
+            if (nextPath.length == 0) {
+                if (!noResource) {
+                    alert("No path found to 1 or more resources.");
+                    noResource = true;
+                }
                 continue;
             }
             resourcesPaths.push(nextPath);
@@ -128,8 +137,8 @@ class Automaton {
         }
 
         const lastPath = resourcesPaths[resourcesPaths.length - 1];
-        const lastLastState = lastPath[lastPath.length - 1];
-        const final = this.aStar(lastLastState.x, lastLastState.y, this.goalX, this.goalY);
+        lastState = lastPath[lastPath.length - 1];
+        const final = this.aStar(lastState.x, lastState.y, this.goalX, this.goalY);
         for (const state of final) {
             path.push(state);
         }

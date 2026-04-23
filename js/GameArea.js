@@ -165,7 +165,7 @@ class GameArea {
                     this.selectionMode = null;
                     this.obstacleStart = null;
                     this.updateGameArea();
-                    handleClick(obstacles, null, null);
+                    handleClick(obstacles);
                 }
                 break;
             case "resources":
@@ -179,7 +179,7 @@ class GameArea {
                 this.selectingResources = false;
                 this.selectionMode = null;
                 this.updateGameArea();
-                handleClick(resources, null, null);
+                handleClick(resources);
                 break;
             case "startGoal":
                 if (this.env.underObstacle(this.getCell(x), this.getCell(y), 1, 1)) {
@@ -188,7 +188,7 @@ class GameArea {
                 cellX = this.getCell(x);
                 cellY = this.getCell(y);
                 if (this.startGoalStart === null) {
-                    if (this.env.underObstacle(this.getCell(x), this.getCell(y), 1, 1)) {
+                    if (this.env.underObstacle(cellX, cellY, 1, 1)) {
                         return;
                     }
                     this.startGoalStart = { x: cellX, y: cellY };
@@ -206,7 +206,7 @@ class GameArea {
                 this.selectionMode = null;
                 this.startGoalStart = null;
                 this.updateGameArea();
-                handleClick(startAndGoals, null, null);
+                handleClick(startAndGoals);
                 break;
         }
     }
