@@ -16,18 +16,10 @@
 
 <body>
     <script>
-        /*#############################
-        #      Environment setup      #
-        #############################*/
+        /*##################################
+        #      Game environment setup      #
+        ##################################*/
         var ga = new GameArea(20);
-        let env = ga.env;
-
-        /*#####################
-        #      Obstacles      #
-        #####################*/
-        for (obstacle of env.obstacles) {
-            ga.addComponent(new Component(obstacle.width, obstacle.height, obstacle.x, obstacle.y, "blue", ga, 0));
-        }
     </script>
 
     <div id="ui">
